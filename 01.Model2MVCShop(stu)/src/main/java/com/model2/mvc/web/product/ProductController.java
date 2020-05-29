@@ -83,7 +83,8 @@ public class ProductController {
 	}
 	
 	@RequestMapping("/updateProductView.do")
-	public String updateProductView(@Param("prodNo")int prodNo , Model model) throws Exception {
+	public String updateProductView(	@Param("prodNo")int prodNo 
+										, Model model) throws Exception {
 		System.out.println("/updateProductView.do");
 		Product product = productService.getProduct(prodNo);
 		
@@ -94,7 +95,8 @@ public class ProductController {
 	}
 	
 	@RequestMapping("/updateProduct.do")
-	public String updateProduct(@ModelAttribute("product") Product product , Model model ) throws Exception {
+	public String updateProduct(	@ModelAttribute("product") Product product 
+									, Model model ) throws Exception {
 		System.out.println("/updateProduct.do");
 		productService.updateProduct(product);
 		

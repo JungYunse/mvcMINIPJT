@@ -1,5 +1,4 @@
-<%@page import="com.model2.mvc.service.domain.Purchase"%>
-<%@page import="com.model2.mvc.service.domain.User"%>
+
 <%@page import="com.model2.mvc.service.domain.Product"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
@@ -95,7 +94,8 @@ function fncAddPurchase() {
 	</tr>
 </table>
 
-<input type="hidden" name="prodNo" value="${PurchaseProd.prodNo}">
+<input type="hidden" name="prodNo" value="${requestScope.product.prodNo}">
+
 
 <table width="600" border="0" cellspacing="0" cellpadding="0"	align="center" style="margin-top: 13px;">
 	<tr>
@@ -106,7 +106,7 @@ function fncAddPurchase() {
 			상품번호 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
 		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01"><input type="hidden" name ="prodNo" value="${PurchaseProd.prodNo }">${PurchaseProd.prodNo }</td>
+		<td class="ct_write01"><input type="hidden" name ="prodNo" value="${product.prodNo }">${product.prodNo }</td>
 				<tr>
 					<td width="105"></td>
 				</tr>
@@ -118,7 +118,7 @@ function fncAddPurchase() {
 			상품명 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
 		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01"><input type="hidden" name ="prodName" value="${PurchaseProd.prodName }">${PurchaseProd.prodName }</td>
+		<td class="ct_write01"><input type="hidden" name ="prodName" value="${product.prodName }">${product.prodName }</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
@@ -128,7 +128,7 @@ function fncAddPurchase() {
 			상품상세정보 <img	src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
 		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01"><input type="hidden" name ="prodDetail" value="${PurchaseProd.prodDetail }">${PurchaseProd.prodDetail }</td>
+		<td class="ct_write01"><input type="hidden" name ="prodDetail" value="${product.prodDetail }">${product.prodDetail }</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
@@ -136,7 +136,7 @@ function fncAddPurchase() {
 	<tr>
 		<td width="104" class="ct_write">제조일자</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01"><input type="hidden" name ="manuDate" value="${PurchaseProd.manuDate }">${PurchaseProd.manuDate }</td>
+		<td class="ct_write01"><input type="hidden" name ="manuDate" value="${product.manuDate }">${product.manuDate }</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
@@ -144,7 +144,7 @@ function fncAddPurchase() {
 	<tr>
 		<td width="104" class="ct_write">가격</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01"><input type="hidden" name ="price" value="${PurchaseProd.price }">${PurchaseProd.price }</td>
+		<td class="ct_write01"><input type="hidden" name ="price" value="${product.price }">${product.price }</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
@@ -152,7 +152,7 @@ function fncAddPurchase() {
 	<tr>
 		<td width="104" class="ct_write" >등록일자</td>
 		<td bgcolor="D6D6D6" width="1" ></td>
-		<td class="ct_write01" ><input type="hidden" name ="regDate" value="${PurchaseProd.regDate }" >${PurchaseProd.regDate }</td>
+		<td class="ct_write01" ><input type="hidden" name ="regDate" value="${product.regDate }" >${product.regDate }</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
