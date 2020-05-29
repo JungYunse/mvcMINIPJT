@@ -38,7 +38,7 @@ function fncUpdateProduct() {
 // 		document.detailForm.phone.value = "";
 // 	}
 		
-	document.detailForm.action='/updateProduct.do';
+	document.detailForm.action='/product/updateProduct';
 	
 	document.detailForm.submit();
 }

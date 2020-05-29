@@ -56,7 +56,7 @@ function fncGetProductList(currentPage) {
 
 <div style="width:98%; margin-left:10px;">
 
-<form name="detailForm" action="/listProduct.do" method="post">
+<form name="detailForm" action="/product/listProduct" method="post">
 <input type="hidden" name="menu" value="${param.menu}">
 <table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
 	<tr>
@@ -186,13 +186,13 @@ function fncGetProductList(currentPage) {
 			<td></td>
 			<td align ="left">
 			<c:if test="${param.menu == 'manage' }">
-				<a href="/getProduct.do?prodNo=${product.prodNo }&menu=manage">${product.prodName }</a>
+				<a href="/product/getProduct?prodNo=${product.prodNo }&menu=manage">${product.prodName }</a>
 			</c:if>
 			<c:if test="${param.menu == 'search' && product.proTranCode.equals('1  ')}">			
 				${product.prodName }
 			</c:if>
 			<c:if test="${param.menu == 'search' && !product.proTranCode.equals('1  ') }">
-				<a href="/getProduct.do?prodNo=${product.prodNo }&menu=search">${product.prodName }</a>
+				<a href="/product/getProduct?prodNo=${product.prodNo }&menu=search">${product.prodName }</a>
 			</c:if>
 			</td>
 			<td></td>
