@@ -1,22 +1,8 @@
-<%@page import="com.model2.mvc.common.util.CommonUtil"%>
+
 <%@ page contentType="text/html; charset=euc-kr" %>
 
-<%@ page import="java.util.List"  %>
-
-<%@ page import="com.model2.mvc.service.domain.User" %>
-<%@ page import="com.model2.mvc.common.Search" %>
-<%@page import="com.model2.mvc.common.Page"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%-- <% --%>
-<!-- // 	List<User> list= (List<User>)request.getAttribute("list"); -->
-<!-- // 	Page resultPage=(Page)request.getAttribute("resultPage"); -->
-	
-<!-- // 	Search search = (Search)request.getAttribute("search"); -->
-<!-- // 	//==> null 을 ""(nullString)으로 변경 -->
-<!-- // 	String searchCondition = CommonUtil.null2str(search.getSearchCondition()); -->
-<!-- // 	String searchKeyword = CommonUtil.null2str(search.getSearchKeyword()); -->
-<%-- %> --%>
 
 <html>
 <head>
@@ -38,7 +24,7 @@
 
 <div style="width:98%; margin-left:10px;">
 
-<form name="detailForm" action="/listUser.do" method="post">
+<form name="detailForm" action="/user/listUser" method="post">
 
 <table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
 	<tr>
@@ -112,7 +98,7 @@
 <%-- 		<td align="center"><%= i + 1 %></td> --%>
 <!-- 		<td></td> -->
 <!-- 		<td align="left"> -->
-<%-- 			<a href="/getUser.do?userId=<%=vo.getUserId() %>"><%= vo.getUserId() %></a> --%>
+<%-- 			<a href="/user/getUser.do?userId=<%=vo.getUserId() %>"><%= vo.getUserId() %></a> --%>
 <!-- 		</td> -->
 <!-- 		<td></td> -->
 <%-- 		<td align="left"><%= vo.getUserName() %></td> --%>
@@ -129,7 +115,7 @@
 		<tr class ="ce_list_pop">
 			<td align="center">${i }</td>
 			<td></td>
-			<td align="left"><a href="/getUser.do?userId=${user.userId }" >${user.userId}</a></td>
+			<td align="left"><a href="/user/getUser.do?userId=${user.userId }" >${user.userId}</a></td>
 			<td></td>
 			<td align="left">${user.userName }</td>
 			<td></td>
