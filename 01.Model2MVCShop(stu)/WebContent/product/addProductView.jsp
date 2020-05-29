@@ -1,12 +1,12 @@
-<%@page import="com.model2.mvc.service.domain.Product"%>
+
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<%
-	Product prod = (Product)request.getAttribute("vo");
-	session.setAttribute("vo",prod);
-%>
+<%-- <% --%>
+<!-- // 	Product prod = (Product)request.getAttribute("vo"); -->
+<!-- // 	session.setAttribute("vo",prod); -->
+<%-- %> --%>
 
 <html><head>
 <title>상품등록</title>
@@ -42,7 +42,7 @@ function fncAddProduct(){
 		return;
 	}
 
-	document.detailForm.action='/addProduct.do';
+	document.detailForm.action='/product/addProduct';
 	document.detailForm.submit();
 }
 

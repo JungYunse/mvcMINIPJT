@@ -138,10 +138,10 @@
 <!-- 								밑에 updateProductVIEW로 이동 하는 URI 작성 해주기 -->
 
 						<c:if test ="${param.menu=='manage'}">
-						<a href="/updateProductView.do?prodNo=${product.prodNo}"> 수정</a>
+						<a href="/product/updateProduct?prodNo=${product.prodNo}"> 수정</a>
 						</c:if>
 						<c:if test="${param.menu=='search'}">
-						<a href="/addPurchaseView.do?prodNo=${product.prodNo }">구매</a>
+						<a href="/purchase/addPurchase?prodNo=${product.prodNo }">구매</a>
 						</c:if>
 						
 					</td>
