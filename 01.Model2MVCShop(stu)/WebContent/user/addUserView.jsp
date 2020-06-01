@@ -5,7 +5,7 @@
 <title>회원가입</title>
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
-
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
 
 function fncAddUser() {
@@ -56,26 +56,64 @@ function fncAddUser() {
 	} else {
 		document.detailForm.phone.value = "";
 	}
+	
 	var value = "";	
 	if( $("input:text[name='phone2']").val() != ""  &&  $("input:text[name='phone3']").val() != "") {
 		var value = $("option:selected").val() + "-" 
 							+ $("input[name='phone2']").val() + "-" 
 							+ $("input[name='phone3']").val();
+	}
+	$("input:hidden[name='[phone]']").val(value);
+	
+	$("form").attr("method","POST").attr("action","/user/addUser").submit();
 		
-		
-	document.detailForm.action='/user/addUser';
-	document.detailForm.submit();
+	
 }
 
-function check_email(frm) {
-	alert
-	var email=document.detailForm.email.value;
-    if(email != "" && (email.indexOf('@') < 1 || email.indexOf('.') == -1)){
-    	alert("이메일 형식이 아닙니다.");
+$(function(){
+	$("td.ct_btn01:contains('가입')").on("click" , function(){
+		fncAddUser();
+	})
+})
+$(function (){
+	$("td.ct_btn01:contains('취소')").on("click" , function(){
+		$("form")[0].reset();
+	})//reset() 은 jQuery 객체말고 element를 반납하나 확인해보기.
+})
+
+
+$(function(){
+	$("input[name='email']").on("change", function(){
+		var email=$("input[name='email']").val();
+	
+		if(email !="" && (email.indexOf('@') < 1 || email.indexOf('.') == -1)){
+			alert("이메일 형식이 아닙니다.");
+			email.reset();
+		}
+	})
+})
+
+	$(function checkSsn() {
+	var ssn1 , ssn2;
+	var nByear , nTyear;
+	var today;
+	
+	ssn = $("input[name='ssn']").val();
+	if(!PortalJuminCheck(ssn)){
+		alert("잘못된 주민번호 입니다.");
 		return false;
-    }
-    return true;
-}
+	}
+})
+
+// function check_email(frm) {
+// 	alert
+// 	var email=document.detailForm.email.value;
+//     if(email != "" && (email.indexOf('@') < 1 || email.indexOf('.') == -1)){
+//     	alert("이메일 형식이 아닙니다.");
+// 		return false;
+//     }
+//     return true;
+// }
 
 function checkSsn() {
 	var ssn1, ssn2; 
