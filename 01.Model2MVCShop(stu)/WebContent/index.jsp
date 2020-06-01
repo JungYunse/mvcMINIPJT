@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=euc-kr" %>
-
+<%@ page pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
 <html>
 <head>
 <title>Model2 MVC Shop</title>
