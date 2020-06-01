@@ -7,13 +7,20 @@
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 
 <script type="text/javascript">
-<!--
+
 function fncAddUser() {
 	// Form 유효성 검증
-	var id=document.detailForm.userId.value;
-	var pw=document.detailForm.password.value;
-	var pw_confirm=document.detailForm.password2.value;
-	var name=document.detailForm.userName.value;
+// 	var id=document.detailForm.userId.value;
+// 	var pw=document.detailForm.password.value;
+// 	var pw_confirm=document.detailForm.password2.value;
+// 	var name=document.detailForm.userName.value;
+	
+	var id=$('input[name="userId"]').val()
+	var pw=$("input[name='password']").val()
+	var pw_confirm=$('input[name="password2"]').val()
+	var name=$('input[name="userName"]').val()
+	var phone1=$("input[name='phone1']").val()
+	var phone2=$('input[name="phone2"]').val()
 	
 	if(id == null || id.length <1){
 		alert("아이디는 반드시 입력하셔야 합니다.");
@@ -32,10 +39,16 @@ function fncAddUser() {
 		return;
 	}
 	
-	if(document.detailForm.password.value != document.detailForm.password2.value) {
-		alert("비밀번호 확인이 일치하지 않습니다.");
-		document.detailForm.password2.focus();
-		return;
+
+// 	if(document.detailForm.password.value != document.detailForm.password2.value) {
+// 		alert("비밀번호 확인이 일치하지 않습니다.");
+// 		document.detailForm.password2.focus();
+// 		return;
+// 	}
+	
+	if(pw != pw_confirm){
+		alert("비밀번호 불일치!")
+		$("input:text[name='password2']").focus()
 	}
 		
 	if(document.detailForm.phone2.value != "" && document.detailForm.phone2.value != "") {
@@ -43,6 +56,12 @@ function fncAddUser() {
 	} else {
 		document.detailForm.phone.value = "";
 	}
+	var value = "";	
+	if( $("input:text[name='phone2']").val() != ""  &&  $("input:text[name='phone3']").val() != "") {
+		var value = $("option:selected").val() + "-" 
+							+ $("input[name='phone2']").val() + "-" 
+							+ $("input[name='phone3']").val();
+		
 		
 	document.detailForm.action='/user/addUser';
 	document.detailForm.submit();
@@ -96,7 +115,7 @@ function fncCheckDuplication() {
 function resetData() {
 	document.detailForm.reset();
 }
--->
+
 </script>
 </head>
 
