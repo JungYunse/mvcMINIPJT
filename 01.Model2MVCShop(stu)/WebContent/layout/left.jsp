@@ -1,26 +1,44 @@
 <%@ page contentType="text/html; charset=euc-kr" %>
-
-<%@ page import="com.model2.mvc.service.domain.User" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
-	User vo=(User)session.getAttribute("user");
-	String role="";
+// 	User vo=(User)session.getAttribute("user");
+// 	String role="";
 	
-	if(vo != null) {
-		role=vo.getRole();
-	}
+// 	if(vo != null) {
+// 		role=vo.getRole();
+// 	}
 %>
-
+<!DOCTYPE html>
 <html>
+
 <head>
+<meta charset="EUC-KR">	
 <title>Model2 MVC Shop</title>
 
 <link href="/css/left.css" rel="stylesheet" type="text/css">
 
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
+
 function history(){
-	popWin = window.open("/history.jsp","popWin","left=300, top=200, width=300, height=200, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
+	popWin = window.open(	"/history.jsp",
+							"popWin",
+							"left=300, top=200, width=300, height=200, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
 }
+
+
+$(function(){
+	$(".Depth03:contains('개인정보조회')").on("click" , function(){
+		$(window.parent.frames["rightFrame"].document.location).attr("href","/user/getUser?userId=${user.userId}");
+		
+	});
+	
+ 	$( ".Depth03:contains('회원정보조회')" ).on("click" , function() {
+		//Debug..
+		//alert(  $( ".Depth03:contains('회원정보조회')" ) );
+ 		$(window.parent.frames["rightFrame"].document.location).attr("href","/user/listUser");
+	}); 
+});
 </script>
 
 </head>
@@ -33,28 +51,33 @@ function history(){
 <tr>
 <td valign="top"> 
 	<table  border="0" cellspacing="0" cellpadding="0" width="159" >	
-		<% 	if(vo != null){ %>
+	<tr>
+		<c:if test="${!empty user }">
+	
 		<tr>
 			<td class="Depth03">
-				<a href="/user/getUser.do?userId=<%=vo.getUserId() %>" target="rightFrame">개인정보조회</a>
+			개인정보조회
 			</td>
 		</tr>
-		<%	}  %>
-		<% if(role.equals("admin")){%>
+		</c:if>
+		
+		<c:if test="${user.role=='admin'}">
+		
 		<tr>
 			<td class="Depth03" >
-				<a href="/user/listUser.do" target="rightFrame">회원정보조회</a>
+				회원정보조회
 			</td>
 		</tr>
-		<% } %>
+		
+		</c:if>
 		<tr>
 			<td class="DepthEnd">&nbsp;</td>
 		</tr>
 	</table>
 </td>
 </tr>
+<c:if test="${user.role == 'admin' }">
 
-<%	if(role.equals("admin")){ %>
 <!--menu 02 line-->
 <tr>
 	<td valign="top"> 
@@ -75,7 +98,8 @@ function history(){
 		</table>
 	</td>
 </tr>
-<% } %>
+</c:if>
+
 
 <!--menu 03 line-->
 <tr>
@@ -86,13 +110,15 @@ function history(){
 					<a href="/product/listProduct?menu=search" target="rightFrame">상 품 검 색</a>
 				</td>
 			</tr>
-			<%	if(vo != null && role.equals("user")){%>
+			<c:if test="${!empty user && user.role=='user' }">
+			
 			<tr>
 				<td class="Depth03">
 					<a href="/listPurchase.do"  target="rightFrame">구매이력조회</a>
 				</td>
 			</tr>
-			<%  }%>
+			
+			</c:if>
 			<tr>
 				<td class="DepthEnd">&nbsp;</td>
 			</tr>
