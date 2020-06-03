@@ -9,13 +9,30 @@
 <title>회원 목록 조회</title>
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
-
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
 	// 검색 / page 두가지 경우 모두 Form 전송을 위해 JavaScrpt 이용  
 	function fncGetUserList(currentPage) {
-		document.getElementById("currentPage").value = currentPage;
-	   	document.detailForm.submit();		
-	}
+		$("#currentPage").val(currentPage)
+		//document.getElementById("currentPage").value = currentPage;
+	   	$("form").attr("method","POST").attr("action","/user/listUser").submit();
+		//document.detailForm.submit();			   	
+	}// end of fncGetUserList
+	
+	$(function(){
+		$("td.ct_btn01:contains('검색')").on("click",function(){
+			fncGetUserList(1);
+		
+	})//검색 클릭하면 fncGetUserList 실행하게.
+	
+	$(".ct_list_pop td:nth-child(3)").on("click",function(){
+		self.location="/user/getUser?userId="+$(this).text().trim();
+	})//userId 를 클릭하게되면 getUser 로 가게
+	
+	$(".ct_list_pop:nth-child(4n+6)").css("background-color","whitesmoke");
+	
+	$(".ct_list_pop td:nth-child(3)").css("color","brown");
+	})
 </script>
 
 </head>
@@ -23,9 +40,9 @@
 <body bgcolor="#ffffff" text="#000000">
 
 <div style="width:98%; margin-left:10px;">
-
-<form name="detailForm" action="/user/listUser" method="post">
-
+<!-- jQuery로 대체! -->
+<!-- <form name="detailForm" action="/user/listUser" method="post"> -->
+<form name = "detailForm">
 <table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
 	<tr>
 		<td width="15" height="37">
@@ -61,7 +78,7 @@
 						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 					</td>
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top:3px;">
-						<a href="javascript:fncGetUserList('1');">검색</a>
+						검색
 					</td>
 					<td width="14" height="23">
 						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
@@ -81,7 +98,11 @@
 	<tr>
 		<td class="ct_list_b" width="100">No</td>
 		<td class="ct_line02"></td>
-		<td class="ct_list_b" width="150">회원ID</td>
+<!-- 		<td class="ct_list_b" width="150">회원ID</td> -->
+		<td class="ct_list_b" width="150">
+			회원ID<br/>
+			<h7>(Click)</h7>
+		</td>
 		<td class="ct_line02"></td>
 		<td class="ct_list_b" width="150">회원명</td>
 		<td class="ct_line02"></td>
@@ -112,10 +133,10 @@
 	<c:set var ="i" value="0"/>
 	<c:forEach var="user" items="${list }">
 		<c:set var="i" value="${i+1 }"/>
-		<tr class ="ce_list_pop">
-			<td align="center">${i }</td>
+		<tr class ="ct_list_pop">
+			<td align="center">${i}</td>
 			<td></td>
-			<td align="left"><a href="/user/getUser.do?userId=${user.userId }" >${user.userId}</a></td>
+			<td align="center">${user.userId}</td>
 			<td></td>
 			<td align="left">${user.userName }</td>
 			<td></td>
