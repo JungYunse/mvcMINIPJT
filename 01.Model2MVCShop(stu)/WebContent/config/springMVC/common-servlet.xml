@@ -38,6 +38,9 @@
 	</mvc:interceptor>
 </mvc:interceptors>
 
+	<mvc:resources mapping="/css/**" location="/css/" />
+   	<mvc:resources mapping="/images/**" location="/images/" />
+   	<mvc:resources mapping="/javascript/**" location="/javascript/" />
 
 	 
 	 <!--  :: Interceptor 선언 : 로그인 유무확인.--> 

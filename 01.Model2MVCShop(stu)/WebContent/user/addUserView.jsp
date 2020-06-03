@@ -15,13 +15,13 @@ function fncAddUser() {
 // 	var pw_confirm=document.detailForm.password2.value;
 // 	var name=document.detailForm.userName.value;
 	
-	var id=$('input[name="userId"]').val()
-	var pw=$("input[name='password']").val()
-	var pw_confirm=$('input[name="password2"]').val()
-	var name=$('input[name="userName"]').val()
-	var phone1=$("input[name='phone1']").val()
-	var phone2=$('input[name="phone2"]').val()
-	
+	var id=$('input[name="userId"]').val();
+	var pw=$("input[name='password']").val();
+	var pw_confirm=$('input[name="password2"]').val();
+	var name=$('input[name="userName"]').val();
+	var phone1=$("input[name='phone1']").val();
+	var phone2=$('input[name="phone2"]').val();
+	var phone3=$("input[name='phone3']").val();
 	if(id == null || id.length <1){
 		alert("아이디는 반드시 입력하셔야 합니다.");
 		return;
@@ -58,23 +58,24 @@ function fncAddUser() {
 	}
 	
 	var value = "";	
-	if( $("input:text[name='phone2']").val() != ""  &&  $("input:text[name='phone3']").val() != "") {
+	if( phone2 != ""  &&  phone3 != "") {
 		var value = $("option:selected").val() + "-" 
-							+ $("input[name='phone2']").val() + "-" 
-							+ $("input[name='phone3']").val();
+							+ phone2 + "-" 
+							+ phone3;
 	}
 	$("input:hidden[name='[phone]']").val(value);
 	
 	$("form").attr("method","POST").attr("action","/user/addUser").submit();
 		
 	
-}
+}//end of fncAdduser()
 
 $(function(){
 	$("td.ct_btn01:contains('가입')").on("click" , function(){
 		fncAddUser();
 	})
 })
+
 $(function (){
 	$("td.ct_btn01:contains('취소')").on("click" , function(){
 		$("form")[0].reset();
@@ -93,37 +94,15 @@ $(function(){
 	})
 })
 
-	$(function checkSsn() {
+function checkSsn() {
 	var ssn1 , ssn2;
 	var nByear , nTyear;
 	var today;
 	
-	ssn = $("input[name='ssn']").val();
+	//ssn = $("input[name='ssn']").val();
+	ssn = document.detailForm.ssn.value;
 	if(!PortalJuminCheck(ssn)){
 		alert("잘못된 주민번호 입니다.");
-		return false;
-	}
-})
-
-// function check_email(frm) {
-// 	alert
-// 	var email=document.detailForm.email.value;
-//     if(email != "" && (email.indexOf('@') < 1 || email.indexOf('.') == -1)){
-//     	alert("이메일 형식이 아닙니다.");
-// 		return false;
-//     }
-//     return true;
-// }
-
-function checkSsn() {
-	var ssn1, ssn2; 
-	var nByear, nTyear; 
-	var today; 
-
-	ssn = document.detailForm.ssn.value;
-	// 유효한 주민번호 형식인 경우만 나이 계산 진행, PortalJuminCheck 함수는 CommonScript.js 의 공통 주민번호 체크 함수임 
-	if(!PortalJuminCheck(ssn)) {
-		alert("잘못된 주민번호입니다.");
 		return false;
 	}
 }
@@ -145,14 +124,20 @@ function PortalJuminCheck(fieldValue){
 	return ((11 - mod) % 10 == last) ? true : false;
 }
 
-function fncCheckDuplication() {
-	popWin 
-		= window.open("/user/checkDuplication.jsp","popWin", "left=300,top=200,width=300,height=200,marginwidth=0,marginheight=0,scrollbars=no,scrolling=no,menubar=no,resizable=no");
-}
 
-function resetData() {
-	document.detailForm.reset();
-}
+$(function() {
+	//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+	//==> 1 과 3 방법 조합 : $("tagName.className:filter함수") 사용함.	
+	 $("td.ct_btn:contains('ID중복확인')").on("click" , function() {
+		//alert($("td.ct_btn:contains('ID중복확인')").html());
+		popWin 
+		= window.open("/user/checkDuplication.jsp",
+									"popWin", 
+									"left=300,top=200,width=300,height=200,marginwidth=0,marginheight=0,"+
+									"scrollbars=no,scrolling=no,menubar=no,resizable=no");
+	});
+});	
+	 
 
 </script>
 </head>
@@ -205,7 +190,8 @@ function resetData() {
 									<img src="/images/ct_btng01.gif" width="4" height="21"/>
 								</td>
 								<td align="center" background="/images/ct_btng02.gif" class="ct_btn" style="padding-top:3px;">
-									<a href="javascript:fncCheckDuplication();" id="btnCmfID">ID중복확인</a>
+<!-- 									<a href="javascript:fncCheckDuplication();" id="btnCmfID">ID중복확인</a> -->
+									ID중복확인
 								</td>
 								<td width="4" height="21">
 									<img src="/images/ct_btng03.gif" width="4" height="21"/>
@@ -271,8 +257,7 @@ function resetData() {
 		<td width="104" class="ct_write">주민번호</td>
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">
-			<input 	type="text" name="ssn" class="ct_input_g" style="width:100px; height:19px" 
-							onChange="javascript:checkSsn();"  maxLength="13" />
+			<input 	type="text" name="ssn" class="ct_input_g" style="width:100px; height:19px" maxLength="13" />
 			-제외, 13자리 입력
 		</td>
 	</tr>
@@ -298,8 +283,7 @@ function resetData() {
 		<td width="104" class="ct_write">휴대전화번호</td>
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">
-			<select 	name="phone1" class="ct_input_g" style="width:50px; height:25px"
-							onChange="document.detailForm.phone2.focus();">
+			<select 	name="phone1" class="ct_input_g" style="width:50px; height:25px">
 				<option value="010" >010</option>
 				<option value="011" >011</option>
 				<option value="016" >016</option>
@@ -327,7 +311,7 @@ function resetData() {
 				<tr>
 					<td height="26">
 						<input 	type="text" name="email" class="ct_input_g" 
-										style="width:100px; height:19px" onChange="check_email(this.form);" />
+										style="width:100px; height:19px" />
 					</td>
 				</tr>
 			</table>
