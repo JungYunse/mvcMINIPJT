@@ -13,15 +13,16 @@
 <title>회원정보수정</title>
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
-
-<script type="text/javascript" src="../javascript/calendar.js">
-</script>
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="../javascript/calendar.js"></script>
 <script type="text/javascript">
 
 function fncUpdateProduct() {
 
-	var name=document.detailForm.prodName.value;
-	var price = document.detailForm.price.value;
+	//var name = document.detailForm.prodName.value;
+	var name = $('input[name="prodName"]').val()
+	//var price = document.detailForm.price.value;
+	var price = $('input[name="price"]').val()
 	if(name == null || name.length <1){
 		alert("상품명은  반드시 입력하셔야 합니다.");
 		return;
@@ -30,17 +31,17 @@ function fncUpdateProduct() {
 		alert("가격은 반드시 입력하셔야 합니다.");
 		return;
 	}
-	
-		
+
+
 // 	if(document.detailForm.phone2.value != "" && document.detailForm.phone2.value != "") {
 // 		document.detailForm.phone.value = document.detailForm.phone1.value + "-" + document.detailForm.phone2.value + "-" + document.detailForm.phone3.value;
 // 	} else {
 // 		document.detailForm.phone.value = "";
 // 	}
 		
-	document.detailForm.action='/product/updateProduct';
-	
-	document.detailForm.submit();
+		$("form").attr("method","POST").attr("action",'/product/updateProduct').submit();
+// 	document.detailForm.action='/product/updateProduct';
+// 	document.detailForm.submit();
 }
 <!--
 function check_email(frm) {
@@ -53,16 +54,26 @@ function check_email(frm) {
     return true;
 }
 -->
-function resetData() {
-	document.detailForm.reset();
-}
+
+	$(function(){
+		$("td.ct_btn01:contains('수정')").on("click",function(){
+			fncUpdateProduct()
+		})
+		
+		$("td.ct_btn01:contains('취소')")	.on("click",function(){
+			$("form")[0].reset();
+		})
+	})
+// function resetData() {
+// 	document.detailForm.reset();
+// }
 
 </script>
 </head>
 
 <body bgcolor="#ffffff" text="#000000">
 
-<form name="detailForm"  method="post" >
+<form name="detailForm" >
 
 <input type="hidden" name="prodNo" value="${product.prodNo }">
 
@@ -171,7 +182,7 @@ function resetData() {
 						<img src="/images/ct_btnbg01.gif" width="17" height="23">
 					</td>
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top:3px;">
-						<a href="javascript:fncUpdateProduct();">수정</a>
+						수정
 					</td>
 					<td width="14" height="23">
 						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
@@ -181,7 +192,7 @@ function resetData() {
 						<img src="/images/ct_btnbg01.gif" width="17" height="23">
 					</td>
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top:3px;">
-						<a href="javascript:resetData();">취소</a>
+						취소
 					</td>
 					<td width="14" height="23">
 						<img src="/images/ct_btnbg03.gif" width="14" height="23">
