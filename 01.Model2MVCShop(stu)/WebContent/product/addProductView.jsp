@@ -12,19 +12,22 @@
 <title>상품등록</title>
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
-
-<script type="text/javascript" src="../javascript/calendar.js">
-</script>
+<script type="text/javascript" src="../javascript/calendar.js"></script>
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 
 <script type="text/javascript">
 
 function fncAddProduct(){
 	//Form 유효성 검증
- 	var name = document.detailForm.prodName.value;
-	var detail = document.detailForm.prodDetail.value;
-	var manuDate = document.detailForm.manuDate.value;
-	var price = document.detailForm.price.value;
-
+//  var name = document.detailForm.prodName.value;
+// 	var detail = document.detailForm.prodDetail.value;
+ 	
+// 	var price = document.detailForm.price.value;
+	var name 	= $("input[name='prodName']").val()
+	var detail 	= $("input[name='prodDetail']").val()
+	var manuDate=$("input[name='manuDate']")
+	var price 	= $("input[name='price']").val()
+	
 	if(name == null || name.length<1){
 		alert("상품명은 반드시 입력하여야 합니다.");
 		return;
@@ -42,20 +45,32 @@ function fncAddProduct(){
 		return;
 	}
 
-	document.detailForm.action='/product/addProduct';
-	document.detailForm.submit();
+// 	document.detailForm.action='/product/addProduct';
+// 	document.detailForm.submit();
+	$("form").attr("method","POST").attr("action","/product/addProduct").submit();
 }
 
-function resetData(){
-	document.detailForm.reset();
-}
+$(function(){
+	$("td.ct_btn01:contains('등록')").on("click",function(){fncAddProduct()
+		})
+	
+	$("td.ct_btn01:contains('취소')").on("click" , function(){
+		$("form")[0].reset();
+		})
+		
+// 	$("img[src='../images/ct_icon_date.gif']").on("click",function(){
+// 		 show_calendar($("input[name='manuDate']"), $("input[name='manuDate']").val());
+// 	})
+})
+
+// show_calendar('document.detailForm.manuDate', document.detailForm.manuDate.value)
 
 </script>
 </head>
 
 <body text="#000000" bgcolor="#ffffff">
 
-<form name="detailForm" method="post">
+<form enctype="multipart/form-data">
 
 <table width="100%" height="37" cellspacing="0" cellpadding="0" border="0">
 	<tbody><tr>
@@ -82,8 +97,8 @@ function resetData(){
 	</tr>
 	<tr>
 		<td class="ct_write" width="104">
-			상품명 <imgsrc=" images="" ct_icon_red.gif"="" width="3" height="3" align="absmiddle">
-		</imgsrc="></td>
+			상품명 <img src="/images/ct_icon_red.gif" images="ct_icon_red.gif" width="3" height="3" align="absmiddle">
+		</td>
 		<td width="1" bgcolor="D6D6D6"></td>
 		<td class="ct_write01">
 			<table width="100%" cellspacing="0" cellpadding="0" border="0">
@@ -117,7 +132,7 @@ function resetData(){
 		<td width="1" bgcolor="D6D6D6"></td>
 		<td class="ct_write01">
 			<input type="text" name="manuDate" class="ct_input_g" style="width: 100px; height: 19px" maxlength="10" minlength="6">
-				&nbsp;<img src="../images/ct_icon_date.gif" onclick="show_calendar('document.detailForm.manuDate', document.detailForm.manuDate.value)" width="15" height="15">
+				&nbsp;<img src="../images/ct_icon_date.gif" name="manuDate" onclick="show_calendar('document.detailForm.manuDate', document.detailForm.manuDate.value)" width="20" height="20">
 		</td>
 	</tr>
 	<tr>
@@ -139,7 +154,7 @@ function resetData(){
 		<td class="ct_write" width="104">상품이미지</td>
 		<td width="1" bgcolor="D6D6D6"></td>
 		<td class="ct_write01">
-			<input type="text" name="fileName" class="ct_input_g" style="width: 200px; height: 19px" maxlength="13">
+			<input type="file" name="fileName" class="ct_input_g" style="width: 200px; height: 20px" maxlength="13">
 		</td>
 	</tr>
 	<tr>
@@ -157,7 +172,7 @@ function resetData(){
 					<img src="/images/ct_btnbg01.gif" width="17" height="23">
 				</td>
 				<td class="ct_btn01" style="padding-top: 3px;" background="/images/ct_btnbg02.gif">
-					<a href="javascript:fncAddProduct();">등록</a>
+					등록
 				</td>
 				<td width="14" height="23">
 					<img src="/images/ct_btnbg03.gif" width="14" height="23">
@@ -167,7 +182,7 @@ function resetData(){
 					<img src="/images/ct_btnbg01.gif" width="17" height="23">
 				</td>
 				<td class="ct_btn01" style="padding-top: 3px;" background="/images/ct_btnbg02.gif">
-					<a href="javascript:resetData();">취소</a>
+					취소
 				</td>
 				<td width="14" height="23">
 					<img src="/images/ct_btnbg03.gif" width="14" height="23">

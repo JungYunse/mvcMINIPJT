@@ -18,11 +18,27 @@
 	</resultMap>
 	
 	<!-- SQL : INSERT -->
-	<insert 	id="addProduct"		parameterType="product" >
-	 	INSERT
-		INTO product ( prod_no , prod_name , prod_detail , manufacture_day , price, image_file, reg_date) 
-		VALUES	 	 (	seq_product_prod_no.NEXTVAL , #{prodName} , #{prodDetail} , #{manuDate} , #{price} , 
-							#{fileName} , SYSDATE )
+	<insert id="addProduct"	parameterType="product">
+		<selectKey keyProperty="prodNo" resultType="int" order="BEFORE">
+			select 	seq_product_prod_no.NEXTVAL 
+			from 	dual
+		</selectKey>
+	 	INSERT INTO 
+	 	product(		prod_no 
+					, 	prod_name 
+					, 	prod_detail 
+					,	manufacture_day 
+					, 	price
+					, 	image_file
+					, 	reg_date
+				) 
+		VALUES(	seq_product_prod_no.NEXTVAL
+				,#{prodName}
+				,#{prodDetail}
+				,#{manuDate}
+				,#{price}
+				,#{fileName}
+				,SYSDATE )
 	</insert>
 	 
 	 <!-- SQL : SELECT ONE -->

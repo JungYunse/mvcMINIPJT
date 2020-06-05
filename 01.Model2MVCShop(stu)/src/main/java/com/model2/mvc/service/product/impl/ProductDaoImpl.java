@@ -30,7 +30,12 @@ public class ProductDaoImpl implements ProductDao{
 	}
 	@Override
 	public void addProduct(Product product) throws Exception {
+		
 		sqlSession.insert("ProductMapper.addProduct",product);
+		
+		
+		//System.out.println("\n\n -prodDaoImpl ¿¡¼­ product.getProdNO  ["+sqlSession.insert("ProductMapper.addProduct",product)+"]  \n\n");
+		
 		
 	}
 

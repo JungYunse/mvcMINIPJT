@@ -29,6 +29,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	public void addProduct(Product product) throws Exception {
+		System.out.println("\n addProd¿¡¼­ Âï¾îº» product"+product);
 		prodDAO.addProduct(product);
 
 	}

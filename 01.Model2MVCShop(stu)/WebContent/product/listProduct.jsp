@@ -43,12 +43,35 @@
 <title>회원 목록조회</title>
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
-
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
 function fncGetProductList(currentPage) {
-	document.getElementById("currentPage").value = currentPage;
-   	document.detailForm.submit();		
-}
+	$("#currentPage").val(currentPage)
+	//document.getElementById("currentPage").value = currentPage;
+   	$("form").attr("method","POST").attr("action","/product/listProduct").submit();
+	//document.detailForm.submit();			   	
+}// end of fncGetUserList
+
+
+
+
+$(function(){
+	$("td.ct_btn01:contains('검색')").on("click",function(){
+		fncGetProductList(1);
+	})//검색 클릭하면 fncGetUserList 실행하게.
+	
+	$(".ct_list_pop td:nth-child(3)").on("click",function(){
+		self.location="/product/getProduct?prodNo="+$(this).text().trim()+"&menu="+$("input[type='hidden'][name='menu']").val();
+	})
+	
+
+	$(".ct_list_pop:nth-child(4n+6)").css("background-color","whitesmoke");
+	
+	$(".ct_list_pop td:nth-child(3)").css("color","brown");
+})
+
+
+
 </script>
 </head>
 
@@ -56,7 +79,7 @@ function fncGetProductList(currentPage) {
 
 <div style="width:98%; margin-left:10px;">
 
-<form name="detailForm" action="/product/listProduct" method="post">
+<form name="detailForm">
 <input type="hidden" name="menu" value="${param.menu}">
 <table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
 	<tr>
@@ -72,13 +95,13 @@ function fncGetProductList(currentPage) {
 <!-- 				//if(request.getParameter("menu").equals("search")){ -->
 <!-- 				%>  -->
 				<c:if test="${param.menu == 'search' }">
-					<td width="93%" class="ct_ttl01">상품목록조회</td>
+					<td id="search" width="93%" class="ct_ttl01">상품목록조회</td>
 					</c:if>
 <%-- 				<% --%>
 <!-- 		//			}else if(request.getParameter("menu").equals("manage")){ -->
 <!-- 				%> -->
 				<c:if test="${param.menu == 'manage' }">
-					<td width ="93%" class = "ct_ttl01">상품관리</td>
+					<td id="manage" width ="93%" class = "ct_ttl01">상품관리</td>
 <%-- 				<%} %> --%>
 				</c:if>
 				</tr>
@@ -108,7 +131,7 @@ function fncGetProductList(currentPage) {
 						<img src="/images/ct_btnbg01.gif" width="17" height="23">
 					</td>
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top:3px;">
-						<a href="javascript:fncGetProductList('1');">검색</a>
+						검색
 					</td>
 					<td width="14" height="23">
 						<img src="/images/ct_btnbg03.gif" width="14" height="23">
@@ -184,17 +207,21 @@ function fncGetProductList(currentPage) {
 			<td></td>	
 			<td align="center">${product.prodNo }</td>
 			<td></td>
+			
 			<td align ="left">
 			<c:if test="${param.menu == 'manage' }">
-				<a href="/product/getProduct?prodNo=${product.prodNo }&menu=manage">${product.prodName }</a>
+				${product.prodName }
 			</c:if>
 			<c:if test="${param.menu == 'search' && product.proTranCode.equals('1  ')}">			
 				${product.prodName }
 			</c:if>
+			
+			
 			<c:if test="${param.menu == 'search' && !product.proTranCode.equals('1  ') }">
-				<a href="/product/getProduct?prodNo=${product.prodNo }&menu=search">${product.prodName }</a>
+				${product.prodName }
 			</c:if>
 			</td>
+			
 			<td></td>
 			<td align="left">${product.price }</td>
 			<td></td>
@@ -207,6 +234,8 @@ function fncGetProductList(currentPage) {
 			<c:if test="${param.menu == 'manage'&&product.proTranCode.equals('0') }">
 			판매중
 			</c:if>
+			
+			
 			<c:if test="${param.menu == 'search'&&product.proTranCode.equals('1  ')||vo.proTranCode.equals('2  ')}">
 			판매완료
 			</c:if>
