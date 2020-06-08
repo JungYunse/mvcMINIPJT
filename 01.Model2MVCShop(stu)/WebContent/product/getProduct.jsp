@@ -20,7 +20,7 @@
 		self.location="/product/updateProduct?prodNo=${product.prodNo}"	
 		})
 	$("td.ct_btn01:contains('구매')").on("click", function(){
-		self.location="/product/updateProduct?prodNo=${product.prodNo}"	
+		self.location="/purchase/addPurchase?prodNo=${product.prodNo}"	
 	})	
 	
 	$("td.ct_btn01:contains('확인')").on("click", function(){
