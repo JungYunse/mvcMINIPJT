@@ -32,7 +32,7 @@ $(function(){
 		$(window.parent.frames["rightFrame"].document.location).attr("href","/user/getUser?userId=${user.userId}");
 		
 	});
-	
+
  	$( ".Depth03:contains('회원정보조회')" ).on("click" , function() {
 		//Debug..
 		//alert(  $( ".Depth03:contains('회원정보조회')" ) );
@@ -59,8 +59,7 @@ $(function(){
 			개인정보조회
 			</td>
 		</tr>
-		</c:if>
-		
+		</c:if>		
 		<c:if test="${user.role=='admin'}">
 		
 		<tr>
@@ -114,7 +113,7 @@ $(function(){
 			
 			<tr>
 				<td class="Depth03">
-					<a href="/purchase/listPurchase"  target="rightFrame">구매이력조회</a>
+					<a href="/listPurchase.do"  target="rightFrame">구매이력조회</a>
 				</td>
 			</tr>
 			

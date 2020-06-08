@@ -33,42 +33,35 @@ public class UserController {
 	//setter Method 구현 않음
 		
 	public UserController(){
-		System.out.println("[ "+this.getClass()+" ] 실행");
+		System.out.println(this.getClass());
 	}
 	
-	//==> classpath:config/common.properties  ,  classpath:config/commonservice.xml 참조 할것
-	//==> 아래의 두개를 주석을 풀어 의미를 확인 할것
 	@Value("#{commonProperties['pageUnit']}")
-	//@Value("#{commonProperties['pageUnit'] ?: 3}")
 	int pageUnit;
-	
 	@Value("#{commonProperties['pageSize']}")
-	//@Value("#{commonProperties['pageSize'] ?: 2}")
 	int pageSize;
 	
 	
-	//@RequestMapping("/addUserView.do")
-	@RequestMapping(value="addUser",method=RequestMethod.GET)
-	public String addUserView() throws Exception {
-
-		System.out.println("/addUser : GET");
+	@RequestMapping( value="addUser", method=RequestMethod.GET )
+	public String addUser() throws Exception{
+	
+		System.out.println("/user/addUser : GET");
 		
 		return "redirect:/user/addUserView.jsp";
 	}
 	
-	//@RequestMapping("/addUser.do")
-	@RequestMapping(value="addUser" , method=RequestMethod.POST)
+	@RequestMapping( value="addUser", method=RequestMethod.POST )
 	public String addUser( @ModelAttribute("user") User user ) throws Exception {
 
-		System.out.println("/addUser : POST");
+		System.out.println("/user/addUser : POST");
 		//Business Logic
 		userService.addUser(user);
 		
 		return "redirect:/user/loginView.jsp";
 	}
 	
-	//@RequestMapping("/getUser.do")
-	@RequestMapping(value="getUser",method=RequestMethod.GET)
+
+	@RequestMapping( value="getUser", method=RequestMethod.GET )
 	public String getUser( @RequestParam("userId") String userId , Model model ) throws Exception {
 		
 		System.out.println("/user/getUser : GET");
@@ -80,8 +73,8 @@ public class UserController {
 		return "forward:/user/getUser.jsp";
 	}
 	
-	//@RequestMapping("/updateUserView.do")
-	@RequestMapping(value="updateUser",method=RequestMethod.GET)
+
+	@RequestMapping( value="updateUser", method=RequestMethod.GET )
 	public String updateUser( @RequestParam("userId") String userId , Model model ) throws Exception{
 
 		System.out.println("/user/updateUser : GET");
@@ -92,9 +85,8 @@ public class UserController {
 		
 		return "forward:/user/updateUser.jsp";
 	}
-	
-	//@RequestMapping("/updateUser.do")
-	@RequestMapping(value="updateUser", method=RequestMethod.POST)
+
+	@RequestMapping( value="updateUser", method=RequestMethod.POST )
 	public String updateUser( @ModelAttribute("user") User user , Model model , HttpSession session) throws Exception{
 
 		System.out.println("/user/updateUser : POST");
@@ -109,17 +101,16 @@ public class UserController {
 		return "redirect:/user/getUser?userId="+user.getUserId();
 	}
 	
-	//@RequestMapping("/loginView.do")
-	@RequestMapping(value="login" , method=RequestMethod.GET)
-	public String loginView() throws Exception{
+	
+	@RequestMapping( value="login", method=RequestMethod.GET )
+	public String login() throws Exception{
 		
-		System.out.println("/user/login : GET");
+		System.out.println("/user/logon : GET");
 
 		return "redirect:/user/loginView.jsp";
 	}
 	
-	//@RequestMapping("/login.do")
-	@RequestMapping(value="login",method=RequestMethod.POST)
+	@RequestMapping( value="login", method=RequestMethod.POST )
 	public String login(@ModelAttribute("user") User user , HttpSession session ) throws Exception{
 		
 		System.out.println("/user/login : POST");
@@ -132,20 +123,20 @@ public class UserController {
 		
 		return "redirect:/index.jsp";
 	}
+		
 	
-	//@RequestMapping("/logout.do")
-	@RequestMapping(value="logout" , method=RequestMethod.GET)
+	@RequestMapping( value="logout", method=RequestMethod.GET )
 	public String logout(HttpSession session ) throws Exception{
 		
-		System.out.println("/user/logout : GET");
+		System.out.println("/user/logout : POST");
 		
 		session.invalidate();
 		
 		return "redirect:/index.jsp";
 	}
 	
-	//@RequestMapping("/checkDuplication.do")
-	@RequestMapping(value="checkDuplication",method=RequestMethod.POST)
+	
+	@RequestMapping( value="checkDuplication", method=RequestMethod.POST )
 	public String checkDuplication( @RequestParam("userId") String userId , Model model ) throws Exception{
 		
 		System.out.println("/user/checkDuplication : POST");
@@ -157,9 +148,9 @@ public class UserController {
 
 		return "forward:/user/checkDuplication.jsp";
 	}
+
 	
-	//@RequestMapping("/listUser.do")
-	@RequestMapping(value="listUser")
+	@RequestMapping( value="listUser" )
 	public String listUser( @ModelAttribute("search") Search search , Model model , HttpServletRequest request) throws Exception{
 		
 		System.out.println("/user/listUser : GET / POST");

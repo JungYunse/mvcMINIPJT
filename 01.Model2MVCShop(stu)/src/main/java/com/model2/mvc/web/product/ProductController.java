@@ -70,7 +70,7 @@ public class ProductController {
 		System.out.println("/product/addProduct : POST");
 		
 		if(FileUpload.isMultipartContent(request)) {
-			String temDir ="C:\\Users\\user\\git\\mvcMINIPJT\\01.Model2MVCShop(stu)\\WebContent\\images\\uploadFiles\\";
+			String temDir ="C:\\Users\\wjddb\\git\\mvcMINIPJT\\01.Model2MVCShop(stu)\\WebContent\\images\\uploadFiles";
 			
 			DiskFileUpload fileUpload = new DiskFileUpload();
 			fileUpload.setSizeMax(1024*1024*10);

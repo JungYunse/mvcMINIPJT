@@ -5,39 +5,6 @@
 <%@ page import="java.util.*"  %>
 <%@ page import="com.model2.mvc.common.*" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!-- <style> -->
-<!-- /* .ct_list_b{border-right:1px solid #fff; } */ -->
-<!-- </style> -->
-<%
-// List<Product> list= (List<Product>)request.getAttribute("list");
-// Page resultPage=(Page)request.getAttribute("resultPage");
-
-// Search search = (Search)request.getAttribute("search");
-// //==> null 을 ""(nullString)으로 변경
-// String searchCondition = CommonUtil.null2str(search.getSearchCondition());
-// String searchKeyword = CommonUtil.null2str(search.getSearchKeyword());
-
-// 	HashMap<String,Object> map =(HashMap<String,Object>)request.getAttribute("map");
-// 	System.out.println("맵2:"+request.getAttribute("map"));
-// 	SearchVO searchVO=(SearchVO)request.getAttribute("searchVO");
-// 	System.out.println("서치2:"+request.getAttribute("searchVO"));
-// 	int total=0;
-// 	ArrayList<ProductVO> list=null;
-// 	if(map != null){
-// 		total=((Integer)map.get("count")).intValue();
-// 		list=(ArrayList<ProductVO>)map.get("list");
-// 	}
-	
-// 	int currentPage = searchVO.getPage();
-	
-// 	int totalPage=0;
-// 	if(total > 0) {
-// 		totalPage= total / searchVO.getPageUnit();
-// 		if(total%searchVO.getPageUnit() >0)
-// 			totalPage += 1;
-// 	}
-%>
-
 <html>
 <head>
 <title>회원 목록조회</title>
@@ -64,6 +31,44 @@ $(function(){
 		self.location="/product/getProduct?prodNo="+$(this).text().trim()+"&menu="+$("input[type='hidden'][name='menu']").val();
 	})
 	
+	$(".ct_list_pop td:nth-child(5)").on("click",function(){		
+			//for(i=0;i<${resultPage.currentPage };i++){
+				var	prodNo = $(this).text().trim();
+				prodNo= prodNo.substring(0,5);
+					alert('prodNo = '+prodNo);
+				//이놈이 for 문 안에 있는 놈 1개만 가지고와 맨날 왜
+			//}
+		$.ajax({
+			url:"/product/json/getProduct/"+prodNo, 
+			method:"GET",
+			dataType:"json",
+			headers:{
+				"Accept" : "application/json",
+				"Content-Type" : "application/json"
+			},
+			success:function(JSONData , status){
+// 				alert(status);
+// 				//Debug...
+// 				alert("JSONData : \n"+JSONData.price);
+				
+				var displayValue="<h3>"
+					+"상품번호: "+ JSONData.prodNo +"<br/>"
+					+"상세정보: "+ JSONData.prodDetail +"<br/>"
+					+"이  름    : "+ JSONData.manuDate +"<br/>"
+					+"등록일   : "+ JSONData.regDate +"<br/>"
+					+"가격      : "+ JSONData.price +"<br/>"
+					+"제품사진: <img src='../images/uploadFiles/"+ JSONData.fileName +"'></img><br/>"
+					+"</h3>";
+									
+					$("tr.ct_list_pop h3").remove();
+					$("#damn").html(displayValue);
+					//h3 태그를 넣어줄 곳을 찾는 다.
+			}
+			
+		})
+			
+			
+	})
 
 	$(".ct_list_pop:nth-child(4n+6)").css("background-color","whitesmoke");
 	
@@ -71,8 +76,13 @@ $(function(){
 })
 
 
-
 </script>
+<style type="text/css">
+p{
+	display: none;
+}
+
+</style>
 </head>
 
 <body bgcolor="#ffffff" text="#000000">
@@ -90,19 +100,13 @@ $(function(){
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
 				
-<%-- 				<% --%>
-<!--  					//System.out.println(request.getParameter("menu")); -->
-<!-- 				//if(request.getParameter("menu").equals("search")){ -->
-<!-- 				%>  -->
 				<c:if test="${param.menu == 'search' }">
 					<td id="search" width="93%" class="ct_ttl01">상품목록조회</td>
 					</c:if>
-<%-- 				<% --%>
-<!-- 		//			}else if(request.getParameter("menu").equals("manage")){ -->
-<!-- 				%> -->
+
 				<c:if test="${param.menu == 'manage' }">
 					<td id="manage" width ="93%" class = "ct_ttl01">상품관리</td>
-<%-- 				<%} %> --%>
+
 				</c:if>
 				</tr>
 			</table>
@@ -170,56 +174,27 @@ $(function(){
 	<tr>
 		<td colspan="11" bgcolor="808285" height="1"></td>
 	</tr>
-	
-<%-- 	<% 		 --%>
-<!-- //  		for(int i=0; i<list.size(); i++) {  -->
-<!-- //  			Product vo = list.get(i);  -->
-<%-- 	%> --%>
-<!--  	<tr class="ct_list_pop">  -->
-<%-- 		<td align="center"><%=i+1%></td> --%>
-<!--  		<td></td>  -->
-<%-- 		<td align="left"><%= vo.getProdNo() %></td> --%>
-<!--  		<td></td>  -->
-<!--  		<td align="left"> -->
-<%-- 		<%if (request.getParameter("menu").equals("manage")) {%> --%>
-<%-- 			<a href="/getProduct.do?prodNo=<%=vo.getProdNo() %>&menu=manage"><%= vo.getProdName() %></a> --%>
-<%-- 		<%}else if(request.getParameter("menu").equals("search")){ %> --%>
-<%-- 			<a href="/getProduct.do?prodNo=<%=vo.getProdNo() %>&menu=search"><%= vo.getProdName() %></a> --%>
-<%-- 			<%} %> --%>
-<!--  		</td> -->
-<!--  		<td></td>	  -->
-<%-- 		<td align="left"><%=vo.getPrice()%></td>		 --%>
-<!--  		<td></td> -->
-<%-- 		<td align ="left"><%=vo.getRegDate() %></td> --%>
-<!--  		<td></td> -->
-<!--  		<td align = "center">판매중</td> -->
-<!-- 	</tr> -->
-	
-<!--  	<tr>  -->
-<!--  		<td colspan="11" bgcolor="D6D7D6" height="1"></td>  -->
-<!--  	</tr>  -->
-<%-- 	<% } %> --%>
+
 <c:set var="i" value ="0"/>
 	<c:forEach var="product" items ="${list }">
-		<c:set var="i" value="${i+1 }"/>
+		<c:set var="i" value="${i+1}"/>
 		<tr class="ct_list_pop">
-			<td align ="center">${i }</td>
+			<td align ="center">${i}</td>
 			<td></td>	
-			<td align="center">${product.prodNo }</td>
+			<td align="center" id='prodNo'>${product.prodNo }</td>
 			<td></td>
 			
-			<td align ="left">
-			<c:if test="${param.menu == 'manage' }">
-				${product.prodName }
-			</c:if>
-			<c:if test="${param.menu == 'search' && product.proTranCode.equals('1  ')}">			
-				${product.prodName }
-			</c:if>
-			
-			
-			<c:if test="${param.menu == 'search' && !product.proTranCode.equals('1  ') }">
-				${product.prodName }
-			</c:if>
+			<td align ="left" id="tdtd">
+				<p>${product.prodNo }</p>
+				<c:if test="${param.menu == 'manage' }">
+					${product.prodName }
+				</c:if>
+				<c:if test="${param.menu == 'search' && product.proTranCode.equals('1  ')}">			
+					${product.prodName }
+				</c:if>
+				<c:if test="${param.menu == 'search' && !product.proTranCode.equals('1  ') }">
+					${product.prodName }
+				</c:if>
 			</td>
 			
 			<td></td>
@@ -246,7 +221,7 @@ $(function(){
 			<td></td>
 			<td align ="center">
 			<c:if test="${param.menu == 'manage' && product.proTranCode.equals('1  ') }">
-			<a href="/updateTranCodeByProd.do?prodNo=${product.prodNo }&tranCode=2">배송시작</a>
+				<a href="/updateTranCodeByProd.do?prodNo=${product.prodNo }&tranCode=2">배송시작</a>
 			</c:if>
 			<c:if test="${param.menu == 'manage' && product.proTranCode.equals('2  ') }">
 			배송중
@@ -265,32 +240,20 @@ $(function(){
 			0 개
 			</c:if>
 			</td>
-			</tr>
-			<tr>
-				<td colspan="11" bgcolor ="D6D7D6" height ="1"></td>
-			</tr>
+		</tr>
+		<tr id="damn">
+			<td  colspan="11" bgcolor="D6D7D6" height="1"></td>
+		</tr>
+			
 			</c:forEach>
+		
 </table>
 <!-- page Navigation Starts here! -->
 <table width="100%" border="0" cellspacing="0" cellpadding="0"	style="margin-top:10px;">
 	<tr>
 		<td align="center">
 		   <input type="hidden" id="currentPage" name="currentPage" value=""/>
-<%-- 			<% if( resultPage.getCurrentPage() <= resultPage.getPageUnit() ){ %> --%>
-<!-- 					◀ 이전 -->
-<%-- 			<% }else{ %> --%>
-<%-- 					<a href="javascript:fncGetProductList('<%=resultPage.getCurrentPage()-1%>')">◀ 이전</a> --%>
-<%-- 			<% } %> --%>
 
-<%-- 			<%	for(int i=resultPage.getBeginUnitPage();i<= resultPage.getEndUnitPage() ;i++){	%> --%>
-<%-- 					<a href="javascript:fncGetProductList('<%=i %>');"><%=i %></a> --%>
-<%-- 			<% 	}  %> --%>
-	
-<%-- 			<% if( resultPage.getEndUnitPage() >= resultPage.getMaxPage() ){ %> --%>
-<!-- 					이후 ▶ -->
-<%-- 			<% }else{ %> --%>
-<%-- 					<a href="javascript:fncGetProductList('<%=resultPage.getEndUnitPage()+1%>')">이후 ▶</a> --%>
-<%-- 			<% } %> --%>
 		<jsp:include page="../common/pageNavigatorProduct.jsp"/>
     	</td>
 	</tr>
