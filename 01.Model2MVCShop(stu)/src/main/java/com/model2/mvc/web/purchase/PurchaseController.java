@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.model2.mvc.common.Page;
@@ -26,6 +27,7 @@ import com.model2.mvc.service.product.impl.ProductServiceImpl;
 import com.model2.mvc.service.purchase.PurchaseService;
 import com.model2.mvc.service.user.UserService;
 @Controller
+@RequestMapping("/purchase/*")
 public class PurchaseController {
 	///Field
 	@Autowired
@@ -51,14 +53,15 @@ public class PurchaseController {
 	@Value("#{commonProperties['pageSize']}")
 	int pageSize;
 	
-	@RequestMapping("/addPurchaseView.do")
-	public String addPurchaseView(	@RequestParam("prodNo")int prodNo ,
+	//@RequestMapping("/addPurchaseView.do")
+	@RequestMapping(value="/addPurchase",method=RequestMethod.GET)
+	public String addPurchase(	@RequestParam("prodNo")int prodNo ,
 									@Param("user.userId")String userId
 									,HttpServletRequest request
 									,HttpServletResponse response
 									,Model model 
 									,HttpSession session) throws Exception {
-		System.out.println("/addPurchaseView.do");
+		System.out.println("\n /purchase/addPurchase : GET \n");
 		System.out.println("!!"+prodNo);
 		System.out.println("!@!"+userId);
 		
@@ -72,15 +75,14 @@ public class PurchaseController {
 		return "forward:/purchase/addPurchaseView.jsp";
 	}
 	
-	@RequestMapping("/addPurchase.do")
+	//@RequestMapping("/addPurchase.do")
+	@RequestMapping(value="/addPurchase",method=RequestMethod.POST)
 	public String addPurchase(	
 								@ModelAttribute("purch") Purchase purchase
 								,HttpServletRequest request 
 								,HttpServletResponse response
 								,Model model) throws Exception {
-		System.out.println("/addPurchase.do");
-		
-		
+		System.out.println("\n /purchase/addPurchase : POST \n");
 		System.out.println("!!@@"+purchase);
 		//purchaseService.addPurchase(purchase);
 		
@@ -96,10 +98,11 @@ public class PurchaseController {
 		return "forward:/purchase/getPurchase.jsp";
 	}
 	
-	@RequestMapping("/listPurchase.do")
+	//@RequestMapping("/listPurchase.do")
+	@RequestMapping(value="/listPurchase")
 	public String listPurchase(@ModelAttribute("search") Search search , Model model , HttpServletRequest request,String buyerId) throws Exception {
 		
-		System.out.println("/listProduct.do");
+		System.out.println("\n /purchase/listPurchase : POST,GET \n");
 		
 		if(search.getCurrentPage() == 0) {
 			search.setCurrentPage(1);
