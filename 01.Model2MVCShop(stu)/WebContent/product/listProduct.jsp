@@ -1,5 +1,4 @@
-<%@page import="com.model2.mvc.common.util.CommonUtil"%>
-<%@page import="com.model2.mvc.service.domain.Product"%>
+
 <%@ page contentType="text/html; charset=euc-kr" %>
 
 <%@ page import="java.util.*"  %>
@@ -9,9 +8,31 @@
 <head>
 <title>회원 목록조회</title>
 
-<link rel="stylesheet" href="/css/admin.css" type="text/css">
+<meta charset="EUC-KR">
+	
+	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+	
+	
+	<!-- Bootstrap Dropdown Hover CSS -->
+   <link href="/css/animate.min.css" rel="stylesheet">
+   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+    <!-- Bootstrap Dropdown Hover JS -->
+   <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+   
+   
+   <!-- jQuery UI toolTip 사용 CSS-->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
+
+
 function fncGetProductList(currentPage) {
 	$("#currentPage").val(currentPage)
 	//document.getElementById("currentPage").value = currentPage;
@@ -23,18 +44,18 @@ function fncGetProductList(currentPage) {
 
 
 $(function(){
-	$("td.ct_btn01:contains('검색')").on("click",function(){
-		fncGetProductList(1);
-	})//검색 클릭하면 fncGetUserList 실행하게.
+	//$("td.ct_btn01:contains('검색')").on("click",function(){
+		//fncGetProductList(1);
+	//})//검색 클릭하면 fncGetUserList 실행하게.
 	
-	$(".ct_list_pop td:nth-child(3)").on("click",function(){
-		self.location="/product/getProduct?prodNo="+$(this).text().trim()+"&menu="+$("input[type='hidden'][name='menu']").val();
+	$("td:nth-child(2)").on("click",function(){
+		self.location="/product/getProduct?prodNo="+$(this).text().trim();
 	})
 	
-	$(".ct_list_pop td:nth-child(5)").on("click",function(){		
+	$("td:nth-child(5) > i").on("click",function(){		
 			//for(i=0;i<${resultPage.currentPage };i++){
-				var	prodNo = $(this).text().trim();
-				prodNo= prodNo.substring(0,5);
+				var	prodNo = $(this).next().val();
+				
 					alert('prodNo = '+prodNo);
 				//이놈이 for 문 안에 있는 놈 1개만 가지고와 맨날 왜
 			//}
@@ -51,17 +72,17 @@ $(function(){
 // 				//Debug...
 // 				alert("JSONData : \n"+JSONData.price);
 				
-				var displayValue="<h3>"
+				var displayValue="<h6>"
 					+"상품번호: "+ JSONData.prodNo +"<br/>"
 					+"상세정보: "+ JSONData.prodDetail +"<br/>"
 					+"이  름    : "+ JSONData.manuDate +"<br/>"
 					+"등록일   : "+ JSONData.regDate +"<br/>"
 					+"가격      : "+ JSONData.price +"<br/>"
 					+"제품사진: <img src='../images/uploadFiles/"+ JSONData.fileName +"'></img><br/>"
-					+"</h3>";
+					+"</h6>";
 									
-					$("tr.ct_list_pop h3").remove();
-					$("#damn").html(displayValue);
+					$("h6").remove();
+					$("#"+prodNo+"").html(displayValue);
 					//h3 태그를 넣어줄 곳을 찾는 다.
 			}
 			
@@ -72,23 +93,118 @@ $(function(){
 
 	$(".ct_list_pop:nth-child(4n+6)").css("background-color","whitesmoke");
 	
-	$(".ct_list_pop td:nth-child(3)").css("color","brown");
+	$("td:nth-child(2)" ).css("color","brown");
 })
 
 
 </script>
 <style type="text/css">
-p{
-	display: none;
-}
-
+	p{
+		display: none;
+		}
+	
+	 body {
+	    padding-top : 50px;
+	        }
 </style>
 </head>
 
 <body bgcolor="#ffffff" text="#000000">
+<jsp:include page="/layout/toolbar.jsp" />
 
-<div style="width:98%; margin-left:10px;">
 
+<div class="container">
+	<c:if test="${sessionScope.user.role == 'admin' }">
+		<div class="page-header text-info">
+	       <h3>상품 관리</h3>
+	    </div>
+ 	</c:if>
+ 	
+	<c:if test="${user.role == 'user'}">
+		<div class="page-header text-info">
+	       <h3>상품 목록조회</h3>
+	    </div>
+ 	</c:if> 
+
+<div class="row">
+	    
+		    <div class="col-md-6 text-left">
+		    	<p class="text-primary">
+		    		전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지
+		    	</p>
+		    </div>
+		    
+		    <div class="col-md-6 text-right">
+			    <form class="form-inline" name="detailForm">
+			    
+				  <div class="form-group">
+				    <select class="form-control" name="searchCondition" >
+						<option value="0"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>상품명</option>
+						<option value="1"  ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>상품이름</option>
+						<option value="2"  ${ ! empty search.searchCondition && search.searchCondition==2 ? "selected" : "" }>가격</option>
+					</select>
+				  </div>
+				  
+				  <div class="form-group">
+				    <label class="sr-only" for="searchKeyword">검색어</label>
+				    <input type="text" class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="검색어"
+				    			 value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >
+				  </div>
+				  
+				  <button type="button" class="btn btn-default">검색</button>
+				  
+				  <!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
+				  <input type="hidden" id="currentPage" name="currentPage" value=""/>
+				  
+				</form>
+	    	</div>
+	    	
+	</div>
+	
+	 <table class="table table-hover table-striped" >
+      
+        <thead>
+          <tr>
+            <th align="center">No</th>
+            <th align="left" >상품번호</th>
+            <th align="left">상품명</th>
+            <th align="left">가격</th>
+            <th align="left">간략정보</th>
+          </tr>
+        </thead>
+       
+		<tbody>
+		
+		  <c:set var="i" value="0" />
+		  <c:forEach var="product" items="${list}">
+			<c:set var="i" value="${ i+1 }" />
+			<tr>
+			  <td align="center">${ i }</td>
+			  <td align="left"  title="Click : 상품정보 확인">${product.prodNo}</td>
+			  <td align="left">${product.prodName}</td>
+			  <td align="left">${product.price}  ￦</td>
+			  <td align="left">
+			  	<i class="glyphicon glyphicon-ok" id= "${product.prodNo}"></i>
+			  	<input type="hidden" value="${product.prodNo}">
+			  </td>
+			</tr>
+          </c:forEach>
+        
+        </tbody>
+      
+      </table>
+      </div>
+ 	<!--  화면구성 div End /////////////////////////////////////-->
+ 	
+ 	
+ 	<!-- PageNavigation Start... -->
+	<jsp:include page="../common/pageNavigatorProduct_new.jsp"/>
+	<!-- PageNavigation End... -->
+	
+</body>
+
+</html>
+<!-- 
 <form name="detailForm">
 <input type="hidden" name="menu" value="${param.menu}">
 <table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
@@ -248,7 +364,7 @@ p{
 			</c:forEach>
 		
 </table>
-<!-- page Navigation Starts here! -->
+ page Navigation Starts here! 
 <table width="100%" border="0" cellspacing="0" cellpadding="0"	style="margin-top:10px;">
 	<tr>
 		<td align="center">
@@ -258,9 +374,10 @@ p{
     	</td>
 	</tr>
 </table>
-<!--  페이지 Navigator 끝 -->
+  페이지 Navigator 끝 
 </form>
 </div>
 
 </body>
 </html>
+ -->
