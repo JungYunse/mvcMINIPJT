@@ -1,4 +1,4 @@
-<%@page import="com.model2.mvc.service.domain.Product"%>
+
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%
@@ -6,6 +6,9 @@
 // // 	System.out.println(vo.getProdNo());
 // 	//request.setAttribute("prod",vo);
 //  	session.setAttribute("prod", vo);
+
+
+//파일 업로드 중 그림 안바귀
 %>
 
 <html>
@@ -15,6 +18,30 @@
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="../javascript/calendar.js"></script>
+<meta charset="EUC-KR">
+	
+	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+	
+	<!-- Bootstrap Dropdown Hover CSS -->
+   <link href="/css/animate.min.css" rel="stylesheet">
+   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+   
+    <!-- Bootstrap Dropdown Hover JS -->
+   <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+   
+	<!--  ///////////////////////// CSS ////////////////////////// -->
+	<style>
+		body {
+            padding-top : 50px;
+        }
+    </style>
 <script type="text/javascript">
 
 function fncUpdateProduct() {
@@ -56,11 +83,11 @@ function check_email(frm) {
 -->
 
 	$(function(){
-		$("td.ct_btn01:contains('수정')").on("click",function(){
+		$(".btn-primary:contains('수 정')").on("click",function(){
 			fncUpdateProduct()
 		})
 		
-		$("td.ct_btn01:contains('취소')")	.on("click",function(){
+		$(".btn-primary:contains('취 소')")	.on("click",function(){
 			$("form")[0].reset();
 		})
 	})
@@ -71,8 +98,79 @@ function check_email(frm) {
 </script>
 </head>
 
+<jsp:include page="/layout/toolbar.jsp" />
+
 <body bgcolor="#ffffff" text="#000000">
 
+<div class="container">
+	
+		<div class="page-header text-center">
+	       <h3 class=" text-info">상품 정보 수정</h3>
+	       <h5 class="text-muted">키키 <strong class="text-danger">루 삥 </strong>뽕</h5>
+	    </div>
+	    
+	    <!-- form Start /////////////////////////////////////-->
+		<form class="form-horizontal">
+		
+		  <div class="form-group">
+		    <label for="prodNo" class="col-sm-offset-1 col-sm-3 control-label">상품 번호</label>
+		    <div class="col-sm-4">
+		      <input type="text" class="form-control" id="prodNo" name="prodNo" value="${product.prodNo }" placeholder="중복확인하세요"  readonly>
+		       <span id="helpBlock" class="help-block">
+		      	<strong class="text-danger">상품번호는 수정 불가</strong>
+		      </span>
+		    </div>
+		  </div>
+		
+		  <div class="form-group">
+		    <label for="prodName" class="col-sm-offset-1 col-sm-3 control-label">상품명</label>
+		    <div class="col-sm-4">
+		      <input type="text" class="form-control" id="prodName" name="prodName" placeholder="변경 상품명">
+		    </div>
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="price" class="col-sm-offset-1 col-sm-3 control-label">가격</label>
+		    <div class="col-sm-4">
+		      <input type="text" class="form-control" id="price" name="price" placeholder="변경 가격">
+		    
+		    </div>
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="prodDetail" class="col-sm-offset-1 col-sm-3 control-label">상품 상세정보</label>
+		    <div class="col-sm-4">
+		      <input type="text" class="form-control" id="prodDetail" name="prodDetail" value="${product.prodDetail}" placeholder="상품 상세정보"> 
+		    </div>
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="fileName" class="col-sm-offset-1 col-sm-3 control-label">상품이미지</label>
+		    <div class="col-sm-4">
+		      <input type="file" class="form-control" id="fileName" name="fileName">
+		      <img src="../images/uploadFiles/${!empty product.fileName ? product.fileName :  BE_Cover.jpg}"/>
+		    </div>
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="manuDate" class="col-sm-offset-1 col-sm-3 control-label">제조 일자</label>
+		     <div class="col-sm-2">
+		     <input type="date" class="form-control" id="manuDate" name="manuDate" >
+		   </div>
+		  </div>
+		  
+		  <div class="form-group">
+		    <div class="col-sm-offset-4  col-sm-4 text-center">
+		      <button type="button" class="btn btn-primary"  >수 정</button>
+			  <a class="btn btn-primary btn" href="#" role="button" type="button">취 소</a>
+		    </div>
+		  </div>
+		</form>
+		<!-- form Start /////////////////////////////////////-->
+	    
+ 	</div>
+
+<!--
 <form name="detailForm" >
 
 <input type="hidden" name="prodNo" value="${product.prodNo }">
@@ -203,6 +301,6 @@ function check_email(frm) {
 	</tr>
 </table>
 </form>
-
+-->
 </body>
 </html>

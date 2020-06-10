@@ -53,7 +53,7 @@ public class ProductController {
 	public String addProduct() {
 		System.out.println("/product/addProduct : GET");
 		
-		return "redirect:/product/addProduct.jsp";
+		return "redirect:/product/addProductView.jsp";
 	}
 	
 	//@RequestMapping("/addProduct.do")
