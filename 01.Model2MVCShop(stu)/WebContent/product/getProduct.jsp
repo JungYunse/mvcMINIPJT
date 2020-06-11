@@ -48,7 +48,7 @@
 		self.location="/product/updateProduct?prodNo=${product.prodNo}"	
 		})
 	$(".btn-primary:contains('구매')").on("click", function(){
-		self.location="/product/updateProduct?prodNo=${product.prodNo}"	
+		self.location="/purchase/addPurchase?prodNo=${product.prodNo}"	
 	})	
 	
 	$(".btn-primary:contains('확인')").on("click", function(){

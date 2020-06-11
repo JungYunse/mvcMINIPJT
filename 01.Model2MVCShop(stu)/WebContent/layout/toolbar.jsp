@@ -142,6 +142,11 @@
 		 	$("ul.dropdown-menu a:contains('상 품 검 색')").on("click", function(){
 				self.location="/product/listProduct"
 			})
+			
+			$("ul.dropdown-menu li:contains('구매이력조회')").on("click",function(){
+				self.location="/purchase/listPurchase"
+				
+			})
 		 });
 		
 		

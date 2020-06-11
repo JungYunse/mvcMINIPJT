@@ -12,18 +12,8 @@
 
 <!DOCTYPE html>
 
-<%
-List<Purchase> list= (List<Purchase>)request.getAttribute("list");
-Page resultPage=(Page)request.getAttribute("resultPage");
 
-Search search = (Search)request.getAttribute("search");
 
-User user = (User)session.getAttribute("user");
-//==> null 을 ""(nullString)으로 변경
-// String searchCondition = CommonUtil.null2str(search.getSearchCondition());
-// String searchKeyword = CommonUtil.null2str(search.getSearchKeyword());
-
-%>
 <html>
 <head>
 <title>회원 목록조회</title>
@@ -31,10 +21,12 @@ User user = (User)session.getAttribute("user");
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 
 <script type="text/javascript">
+
 function fncGetPurchaseList(currentPage) {
 	document.getElementById("currentPage").value = currentPage;
    	document.detailForm.submit();		
 }
+
 </script>
 </head>
 

@@ -75,6 +75,18 @@ public class UserServiceImpl implements UserService {
 		}
 		return result;
 	}
+	@Override
+	public boolean deleteUser(String userId) throws Exception {
+		// TODO Auto-generated method stub
+		boolean result= false;
+		userDao.deleteUser(userId);
+		User user = userDao.getUser(userId);
+		if(user == null) {
+			result =  true;
+		}
+		return result;
+	}
+	
 	
 
 }

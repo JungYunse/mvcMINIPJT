@@ -174,5 +174,12 @@ public class UserController {
 		return "forward:/user/listUser.jsp";
 	}
 	
+	@RequestMapping(value="deleteUser/{userId}",method=RequestMethod.GET)
+	public String deleteUser(@RequestParam("userId") String userId)throws Exception{
+		System.out.println("/user/deleteUser : GET");
+		boolean result = userService.deleteUser(userId);
+		
+		return "";
+	}
 	
 }

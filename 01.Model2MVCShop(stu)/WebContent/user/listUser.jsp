@@ -57,6 +57,8 @@
 			 //$( "button.btn.btn-default" ).on("click" , function() {
 			//	fncGetUserList(1);
 			//});
+			 
+			 
 		 });
 		
 		
@@ -65,12 +67,11 @@
 		
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$( "td:nth-child(2)" ).on("click" , function() {
-				 self.location ="/user/getUser?userId="+$(this).text().trim();
+				 self.location ="/user/getUser?userId="+$(this).text().trim().substring(0,',');
 			});
 						
 			//==> userId LINK Event End User 에게 보일수 있도록 
 			$( "td:nth-child(2)" ).css("color" , "red");
-			
 		});	
 		
 		
@@ -82,6 +83,8 @@
 
 					var userId = $(this).next().val();
 				
+					
+					
 					$.ajax( 
 							{
 								url : "/user/json/getUser/"+userId ,
@@ -105,8 +108,23 @@
 								}
 						});
 						////////////////////////////////////////////////////////////////////////////////////////////
+						
+						
 					
 			});
+			var user =$("td p").text().split(',');
+			
+			
+			$("#delete").on("click" , function(){
+				for(i=0;i<=totalCount;i++){
+					 var user1 = "";
+					 user1 = user[i]
+				}
+				
+				self.location="/user/deleteUser?"+user1
+				
+			 })
+			 
 			
 			//==> userId LINK Event End User 에게 보일수 있도록 
 			$( ".ct_list_pop td:nth-child(3)" ).css("color" , "red");
@@ -180,6 +198,7 @@
             <th align="left">회원명</th>
             <th align="left">이메일</th>
             <th align="left">간략정보</th>
+            <th align="right">삭제</th>
           </tr>
         </thead>
        
@@ -197,6 +216,7 @@
 			  	<i class="glyphicon glyphicon-ok" id= "${user.userId}"></i>
 			  	<input type="hidden" value="${user.userId}">
 			  </td>
+			  <td align="right"><button class="btn btn-default" id="delete" >삭제</button><p style="display:none;">${user.userId},</p></td>
 			</tr>
           </c:forEach>
         

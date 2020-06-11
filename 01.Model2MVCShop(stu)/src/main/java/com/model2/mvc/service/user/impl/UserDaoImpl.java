@@ -53,6 +53,12 @@ public class UserDaoImpl implements UserDao{
 		return sqlSession.selectOne("UserMapper.getTotalCount", search);
 	}
 
+	@Override
+	public void deleteUser(String userId) throws Exception {
+		// TODO Auto-generated method stub
+		sqlSession.delete("UserMapper.deleteUser",userId);
+	}
+
 	
 
 	

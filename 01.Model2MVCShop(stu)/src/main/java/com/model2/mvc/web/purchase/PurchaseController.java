@@ -41,6 +41,8 @@ public class PurchaseController {
 	@Autowired
 	@Qualifier("userServiceImpl")
 	private UserService userService;
+	
+	
 	///Constructor
 	public PurchaseController() {
 		// TODO Auto-generated constructor stub
@@ -56,7 +58,7 @@ public class PurchaseController {
 	//@RequestMapping("/addPurchaseView.do")
 	@RequestMapping(value="/addPurchase",method=RequestMethod.GET)
 	public String addPurchase(	@RequestParam("prodNo")int prodNo ,
-									@Param("user.userId")String userId
+									@Param("userId")String userId
 									,HttpServletRequest request
 									,HttpServletResponse response
 									,Model model 
@@ -67,10 +69,12 @@ public class PurchaseController {
 		
 		Product prod = productService.getProduct(prodNo);
 		Purchase purchase = new Purchase();
+		purchase.setPurchaseProd(prod);
+		purchase.setBuyer((User)session.getAttribute("user"));
+		
 		request.setAttribute("product", prod);
-		
-		
 		model.addAttribute("purch",purchase);
+		model.addAttribute("user",(User)session.getAttribute("user"));
 		
 		return "forward:/purchase/addPurchaseView.jsp";
 	}
@@ -78,13 +82,17 @@ public class PurchaseController {
 	//@RequestMapping("/addPurchase.do")
 	@RequestMapping(value="/addPurchase",method=RequestMethod.POST)
 	public String addPurchase(	
-								@ModelAttribute("purch") Purchase purchase
-								,HttpServletRequest request 
+								@ModelAttribute("purch") Purchase purchase,
+								@ModelAttribute("product")Product product,
+								@ModelAttribute("user") User user,
+								HttpServletRequest request 
 								,HttpServletResponse response
 								,Model model) throws Exception {
 		System.out.println("\n /purchase/addPurchase : POST \n");
+		
+		
 		System.out.println("!!@@"+purchase);
-		//purchaseService.addPurchase(purchase);
+		purchaseService.addPurchase(purchase);
 		
 		
 		return "forward:/purchase/addPurchase.jsp";
