@@ -173,4 +173,6 @@ public class UserController {
 		
 		return "forward:/user/listUser.jsp";
 	}
+	
+	
 }

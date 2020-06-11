@@ -21,5 +21,6 @@ public interface UserService {
 	public void updateUser(User user) throws Exception;
 
 	public boolean checkDuplication(String userId) throws Exception;
-
+	
+	
 }

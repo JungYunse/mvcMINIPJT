@@ -18,14 +18,24 @@ public class User {
 	private String phone1;
 	private String phone2;
 	private String phone3;
-
+	private String one;
 	/// Constructor
 	public User() {
 	}
 
 	/// Method
+	
+	
 	public String getUserId() {
 		return userId;
+	}
+
+	public String getOne() {
+		return one;
+	}
+
+	public void setOne(String one) {
+		this.one = one;
 	}
 
 	public void setUserId(String userId) {

@@ -87,6 +87,9 @@
 	             </ul>
 	             
 	             <ul class="nav navbar-nav navbar-right">
+	             <c:if test="${!empty user.userId  }">
+	             	<li style ="color: white;"><b><em>${user.userId }</em></b> 님 환영합니다!</li>
+	             	</c:if>
 	                <li><a href="#">로그아웃</a></li>
 	            </ul>
 		</div>
@@ -131,7 +134,7 @@
 		
 		 $(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-		 	$("a:contains('판매상품관리')").on("click" , function() {
+		 	$("ul.dropdown-menu:contains('판매상품관리')").on("click" , function() {
 				//$(self.location).attr("href","/user/logout");
 				self.location = "/product/listProduct"
 			}); 

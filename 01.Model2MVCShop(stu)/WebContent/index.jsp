@@ -50,7 +50,18 @@
 			});
 		});
 		
+		$(function(){
+			$("li.list-group-item:contains('상품검색')").on("click",function(){
+				self.location="/product/listProduct"
+			})
+		})
+		
 	</script>	
+	<style>
+	.jumbotron{
+		background-color:white; 
+	}
+	</style>
 	
 </head>
 
@@ -147,7 +158,7 @@
 	 	 	<!--  Main start /////////////////////////////////////-->   		
 	 	 	<div class="col-md-9">
 				<div class="jumbotron">
-			  		<h1>Model2 MVC Shop</h1>
+			  		<h1><b>Model2 MVC Shop</b></h1>
 			  		<p>로그인 후 사용가능...</p>
 			  		<p>로그인 전 검색만 가능합니다.</p>
 			  		<p>회원가입 하세요.</p>
@@ -156,7 +167,6 @@
 			  			<a class="btn btn-info btn-lg" href="#" role="button">회원가입</a>
 			  			<a class="btn btn-info btn-lg" href="#" role="button">로 그 인</a>
 			  		</div>
-			  	
 			  	</div>
 	        </div>
 	   	 	<!--  Main end /////////////////////////////////////-->   		

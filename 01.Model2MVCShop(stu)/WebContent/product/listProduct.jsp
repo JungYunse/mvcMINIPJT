@@ -43,6 +43,8 @@ function fncGetProductList(currentPage) {
 
 
 
+
+
 $(function(){
 	//$("td.ct_btn01:contains('검색')").on("click",function(){
 		//fncGetProductList(1);
@@ -52,11 +54,11 @@ $(function(){
 		self.location="/product/getProduct?prodNo="+$(this).text().trim();
 	})
 	
-	$("td:nth-child(5) > i").on("click",function(){		
+	$("td:nth-child(5) > i").on("mouseover",function(){		
 			//for(i=0;i<${resultPage.currentPage };i++){
 				var	prodNo = $(this).next().val();
 				
-					alert('prodNo = '+prodNo);
+					//alert('prodNo = '+prodNo);
 				//이놈이 for 문 안에 있는 놈 1개만 가지고와 맨날 왜
 			//}
 		$.ajax({
@@ -94,6 +96,9 @@ $(function(){
 	$(".ct_list_pop:nth-child(4n+6)").css("background-color","whitesmoke");
 	
 	$("td:nth-child(2)" ).css("color","brown");
+	
+	
+	
 })
 
 

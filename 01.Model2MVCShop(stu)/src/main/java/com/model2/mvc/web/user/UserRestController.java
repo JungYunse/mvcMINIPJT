@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,4 +54,22 @@ public class UserRestController {
 		
 		return dbUser;
 	}
+	
+	@RequestMapping(value="json/duplicationCheck/{userId}", method=RequestMethod.GET)
+	public boolean checkDuplication(@PathVariable String userId, Model model) throws Exception{
+		System.out.println("user/json/duplicationCheck");
+		
+		System.out.println("character »Ì±â"+userId);
+		boolean result = userService.checkDuplication(userId);
+		
+		model.addAttribute("result", new Boolean(result));
+		model.addAttribute("userId1", userId);
+
+		
+		
+		return result;
+	}
+	
+	
+	
 }

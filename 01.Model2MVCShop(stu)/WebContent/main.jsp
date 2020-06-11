@@ -33,12 +33,66 @@
         }
    	</style>
    	
+   	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+   	<script type="text/javascript">
+   	
+    var page = 2;
+
+    $(window).scroll(function() {
+        if ( $(window).scrollTop() == $(document).height() - $(window).height()) {
+         // console.log(++page);
+          $("body").append('<div class="container"><h1>Page ' +       + '</h1></div>');
+          
+		
+        }
+    });
+    
+    
+    
+
+//     $.ajax({
+// 		url:"/product/json/getProduct/"+10000, 
+// 		method:"GET",
+// 		dataType:"json",
+// 		headers:{
+// 			"Accept" : "application/json",
+// 			"Content-Type" : "application/json"
+// 		},
+// 		success:function(JSONData , status){
+// //				alert(status);
+// //				//Debug...
+// //				alert("JSONData : \n"+JSONData.price);
+			
+// 			var displayValue="<h6>"
+// 				+"상품번호: "+ JSONData.prodNo +"<br/>"
+// 				+"상세정보: "+ JSONData.prodDetail +"<br/>"
+// 				+"이  름    : "+ JSONData.manuDate +"<br/>"
+// 				+"등록일   : "+ JSONData.regDate +"<br/>"
+// 				+"가격      : "+ JSONData.price +"<br/>"
+// 				+"제품사진: <img src='../images/uploadFiles/"+ JSONData.fileName +"'></img><br/>"
+// 				+"</h6>";
+				
+// 				alert('ss'+displayValue)
+// 		}
+		
+//     })
+// 				$("h6").remove();
+// 				$("#"+prodNo+"").html(displayValue);
+// 				//h3 태그를 넣어줄 곳을 찾는 다.
+// 		}
+		
+// 	})
+		
+		
+
+   	</script>
+   	
      <!--  ///////////////////////// JavaScript ////////////////////////// -->
 	 	
 	
 </head>
 	
-<body>
+<body style="overflow:scroll;">
 
 	<!-- ToolBar Start /////////////////////////////////////-->
 	<jsp:include page="/layout/toolbar.jsp" />
@@ -55,6 +109,26 @@
 
 	<!-- 참조 : http://getbootstrap.com/css/   : container part..... -->
 	<div class="container">
+        <h3>나폴레옹은 이렇게 말했다.</h3>
+        <p>"오늘 나의 불행은 언젠가 내가 잘못 보낸 시간의 보복이다."</p>
+  	 	<h3>"... 장벽은 절실하게 원하지 않는 사람들을 걸러내려고 존재합니다. 장벽은. 당신이 아니라 '다른' 사람들을 멈추게 하려고 거기 있는 것이지요."</h3>
+         <h3>혜광스님</h3>
+         <p>행복한 삶의 비결은.</p>
+         <p>좋아하는 일을 하는 것이 아리라,</p>
+         <p>지금 하는 일을 좋아하는 것입니다.</p>
+  	 </div>
+  	 
+  	<div class="container">
+        <h3>나폴레옹은 이렇게 말했다.</h3>
+        <p>"오늘 나의 불행은 언젠가 내가 잘못 보낸 시간의 보복이다."</p>
+  	 	<h3>"... 장벽은 절실하게 원하지 않는 사람들을 걸러내려고 존재합니다. 장벽은. 당신이 아니라 '다른' 사람들을 멈추게 하려고 거기 있는 것이지요."</h3>
+         <h3>혜광스님</h3>
+         <p>행복한 삶의 비결은.</p>
+         <p>좋아하는 일을 하는 것이 아리라,</p>
+         <p>지금 하는 일을 좋아하는 것입니다.</p>
+  	 </div>
+  	 
+  	 <div class="container">
         <h3>나폴레옹은 이렇게 말했다.</h3>
         <p>"오늘 나의 불행은 언젠가 내가 잘못 보낸 시간의 보복이다."</p>
   	 	<h3>"... 장벽은 절실하게 원하지 않는 사람들을 걸러내려고 존재합니다. 장벽은. 당신이 아니라 '다른' 사람들을 멈추게 하려고 거기 있는 것이지요."</h3>
