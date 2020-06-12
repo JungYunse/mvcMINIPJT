@@ -67,7 +67,8 @@
 		
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$( "td:nth-child(2)" ).on("click" , function() {
-				 self.location ="/user/getUser?userId="+$(this).text().trim().substring(0,',');
+				 self.location ="/user/getUser?userId="+$(this).text().trim();
+				// alert($(this).text().trim())
 			});
 						
 			//==> userId LINK Event End User 에게 보일수 있도록 
@@ -112,18 +113,18 @@
 						
 					
 			});
-			var user =$("td p").text().split(',');
+// 			var user =$("td p").text().split(',');
 			
 			
-			$("#delete").on("click" , function(){
-				for(i=0;i<=totalCount;i++){
-					 var user1 = "";
-					 user1 = user[i]
-				}
+// 			$("#delete").on("click" , function(){
+// 				for(i=0;i<=totalCount;i++){
+// 					 var user1 = "";
+// 					 user1 = user[i]
+// 				}
 				
-				self.location="/user/deleteUser?"+user1
+// 				self.location="/user/deleteUser?"+user1
 				
-			 })
+// 			 })
 			 
 			
 			//==> userId LINK Event End User 에게 보일수 있도록 
@@ -198,7 +199,7 @@
             <th align="left">회원명</th>
             <th align="left">이메일</th>
             <th align="left">간략정보</th>
-            <th align="right">삭제</th>
+<!--             <th align="right">삭제</th> -->
           </tr>
         </thead>
        
@@ -215,9 +216,9 @@
 			  <td align="left">
 			  	<i class="glyphicon glyphicon-ok" id= "${user.userId}"></i>
 			  	<input type="hidden" value="${user.userId}">
-			  </td>
-			  <td align="right"><button class="btn btn-default" id="delete" >삭제</button><p style="display:none;">${user.userId},</p></td>
-			</tr>
+<!-- 			  </td> -->
+<%-- 			  <td align="right"><button class="btn btn-default" id="delete" >삭제</button><p style="display:none;">${user.userId},</p></td> --%>
+<!-- 			</tr> -->
           </c:forEach>
         
         </tbody>

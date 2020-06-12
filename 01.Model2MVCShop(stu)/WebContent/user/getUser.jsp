@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=EUC-KR" %>
 <%@ page pageEncoding="EUC-KR"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 
@@ -38,10 +38,23 @@
 		//============= 회원정보수정 Event  처리 =============	
 		 $(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			 $( "button" ).on("click" , function() {
-					self.location = "/user/updateUser?userId=${user.userId}"
+			 $( "button:contains('회원정보수정')" ).on("click" , function() {
+					self.location = "/user/updateUser?userId=${getUser.userId}"
 				});
+			
+			 $("#delete").on("click" , function() {
+					self.location = "/user/deleteUser?userId=${getUser.userId}"
+				});
+			 
+			 $("#leave").on("click" , function() {
+					self.location = "/user/deleteUser?userId=${getUser.userId}"
+				});
+			
+			
+			
 		});
+		
+		
 		
 	</script>
 	
@@ -63,49 +76,55 @@
 	
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>아 이 디</strong></div>
-			<div class="col-xs-8 col-md-4">${user.userId}</div>
+			<div class="col-xs-8 col-md-4">${getUser.userId}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2 "><strong>이 름</strong></div>
-			<div class="col-xs-8 col-md-4">${user.userName}</div>
+			<div class="col-xs-8 col-md-4">${getUser.userName}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2 "><strong>주소</strong></div>
-			<div class="col-xs-8 col-md-4">${user.addr}</div>
+			<div class="col-xs-8 col-md-4">${getUser.addr}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2 "><strong>휴대전화번호</strong></div>
-			<div class="col-xs-8 col-md-4">${ !empty user.phone ? user.phone : ''}	</div>
+			<div class="col-xs-8 col-md-4">${ !empty getUser.phone ? getUser.phone : ''}	</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>이 메 일</strong></div>
-			<div class="col-xs-8 col-md-4">${user.email}</div>
+			<div class="col-xs-8 col-md-4">${getUser.email}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2 "><strong>가입일자</strong></div>
-			<div class="col-xs-8 col-md-4">${user.regDate}</div>
+			<div class="col-xs-8 col-md-4">${getUser.regDate}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
-	  		<div class="col-md-12 text-center ">
+	  		<div class="col-md-12 text-center">
 	  			<button type="button" class="btn btn-primary">회원정보수정</button>
+	  			<c:if test="${user.role=='admin' }">
+	  				<button type="button" class="btn btn-primary" id="delete">회원삭제</button>
+	  			</c:if>
+	  			<c:if test="${user.role == 'user' }">
+	  				<button type="button" class="btn btn-danger" id="leave">회원탈퇴</button>
+	  			</c:if> 
 	  		</div>
 		</div>
 		

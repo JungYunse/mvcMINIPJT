@@ -127,7 +127,7 @@
 			$(self.location).attr("href","/user/getUser?userId=${sessionScope.user.userId}");
 		});
 		
-		$("ul.dropdown-menu a:contains('판매상품등록')").on("click", function(){
+		$("li:contains('판매상품등록')").on("click", function(){
 			self.location="/product/addProductView.jsp"
 		})
 		

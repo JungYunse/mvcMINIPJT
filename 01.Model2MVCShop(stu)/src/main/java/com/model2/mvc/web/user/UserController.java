@@ -67,8 +67,9 @@ public class UserController {
 		System.out.println("/user/getUser : GET");
 		//Business Logic
 		User user = userService.getUser(userId);
+		System.out.println("user");
 		// Model 과 View 연결
-		model.addAttribute("user", user);
+		model.addAttribute("getUser", user);
 		
 		return "forward:/user/getUser.jsp";
 	}
@@ -174,12 +175,22 @@ public class UserController {
 		return "forward:/user/listUser.jsp";
 	}
 	
-	@RequestMapping(value="deleteUser/{userId}",method=RequestMethod.GET)
-	public String deleteUser(@RequestParam("userId") String userId)throws Exception{
+	@RequestMapping(value="deleteUser",method=RequestMethod.GET)
+	public String deleteUser(@RequestParam("userId") String userId,Model model)throws Exception{
 		System.out.println("/user/deleteUser : GET");
-		boolean result = userService.deleteUser(userId);
+		model.addAttribute("userId",userId);
 		
-		return "";
+		return "forward:/user/deleteUserView.jsp";
+	}
+	
+	@RequestMapping(value="deleteUser" ,method=RequestMethod.POST)
+	public String deleteUser(@ModelAttribute("userId") String userId)throws Exception{
+		System.out.println("/user/deleteUser : POST");
+		boolean result = userService.deleteUser(userId);
+		if(result == false) {
+			return "삭제안됬 페이지";
+		}
+			return "forward:/user/deleteUser.jsp";
 	}
 	
 }
